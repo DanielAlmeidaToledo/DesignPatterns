@@ -11,22 +11,18 @@ O Singleton é um padrão de projeto criacional que permite a você garantir que
 ```
 public class Singleton
 {
-    private static Singleton instance;
+    private static Singleton _instance;
 
     private Singleton() { }
 
-    public static Singleton Instance
+    public static Singleton GetInstance()
     {
-        get
+        if (_instance == null)
         {
-            if (instance == null)
-            {
 
-                instance = new Singleton();
-            }
-
-            return instance;
+            _instance = new Singleton();
         }
+        return _instance;
     }
 }
 ```
