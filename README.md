@@ -6,3 +6,5 @@ Resumo dos 23 Design Patterns
 
 - ✅ Singleton
 - ✅ Factory Method
+- ✅ Builder
+- ✅ Prototype
