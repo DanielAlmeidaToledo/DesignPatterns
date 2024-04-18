@@ -9,3 +9,7 @@ Resumo dos 23 Design Patterns
 - ✅ Abstract Factory
 - ✅ Builder
 - ✅ Prototype
+
+## Padrões Estruturais:
+
+- ✅ Adapter
