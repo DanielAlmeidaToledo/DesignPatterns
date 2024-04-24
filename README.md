@@ -15,3 +15,5 @@ Resumo dos 23 Design Patterns
 - ✅ Adapter
 - ✅ Bridge
 - ✅ Composite
+- ✅ Decorator
+- ✅ Facade
