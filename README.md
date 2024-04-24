@@ -17,3 +17,5 @@ Resumo dos 23 Design Patterns
 - ✅ Composite
 - ✅ Decorator
 - ✅ Facade
+- ✅ Flyweight
+- ✅ Proxy
