@@ -13,3 +13,5 @@ Resumo dos 23 Design Patterns
 ## Padrões Estruturais:
 
 - ✅ Adapter
+- ✅ Bridge
+- ✅ Composite

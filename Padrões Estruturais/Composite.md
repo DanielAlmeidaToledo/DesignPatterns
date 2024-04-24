@@ -9,9 +9,6 @@ O Composite é um padrão de projeto estrutural que permite que você componha o
 ## Implementação
 
 ```
-using System;
-using System.Collections.Generic;
-
 namespace RefactoringGuru.DesignPatterns.Composite.Conceptual
 {
     abstract class Component
