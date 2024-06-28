@@ -14,12 +14,7 @@ class Product
 {
     public string PartA { get; set; }
     public string PartB { get; set; }
-
-    public void ShowParts()
-    {
-        Console.WriteLine($"Part A: {PartA}");
-        Console.WriteLine($"Part B: {PartB}");
-    }
+    public void ShowParts() => Console.WriteLine($"Part A: {PartA}, Part B: {PartB}");
 }
 
 // Interface para o Builder
@@ -34,34 +29,20 @@ interface IBuilder
 class ConcreteBuilder : IBuilder
 {
     private Product _product = new Product();
-
-    public void BuildPartA()
-    {
-        _product.PartA = "Part A";
-    }
-
-    public void BuildPartB()
-    {
-        _product.PartB = "Part B";
-    }
-
-    public Product GetProduct()
-    {
-        return _product;
-    }
+    public void BuildPartA() => _product.PartA = "A";
+    public void BuildPartB() => _product.PartB = "B";
+    public Product GetProduct() => _product;
 }
 
+// Cliente
 class Program
 {
     static void Main(string[] args)
     {
-        // Usando o padrão Builder
         var builder = new ConcreteBuilder();
         builder.BuildPartA();
         builder.BuildPartB();
-
-        var product = builder.GetProduct();
-        product.ShowParts();
+        builder.GetProduct().ShowParts();
     }
 }
 ```

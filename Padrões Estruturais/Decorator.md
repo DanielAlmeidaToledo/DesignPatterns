@@ -9,96 +9,93 @@ O Decorator é um padrão de projeto estrutural que permite que você acople nov
 ## Implementação
 
 ```
-namespace RefactoringGuru.DesignPatterns.Composite.Conceptual
+public abstract class Component
 {
-    public abstract class Component
+    public abstract string Operation();
+}
+
+class ConcreteComponent : Component
+{
+    public override string Operation()
     {
-        public abstract string Operation();
+        return "ConcreteComponent";
+    }
+}
+
+abstract class Decorator : Component
+{
+    protected Component _component;
+
+    public Decorator(Component component)
+    {
+        this._component = component;
     }
 
-    class ConcreteComponent : Component
+    public void SetComponent(Component component)
     {
-        public override string Operation()
-        {
-            return "ConcreteComponent";
-        }
+        this._component = component;
     }
 
-    abstract class Decorator : Component
+    public override string Operation()
     {
-        protected Component _component;
-
-        public Decorator(Component component)
+        if (this._component != null)
         {
-            this._component = component;
+            return this._component.Operation();
         }
-
-        public void SetComponent(Component component)
+        else
         {
-            this._component = component;
-        }
-
-        public override string Operation()
-        {
-            if (this._component != null)
-            {
-                return this._component.Operation();
-            }
-            else
-            {
-                return string.Empty;
-            }
+            return string.Empty;
         }
     }
+}
 
-    class ConcreteDecoratorA : Decorator
+class ConcreteDecoratorA : Decorator
+{
+    public ConcreteDecoratorA(Component comp) : base(comp)
     {
-        public ConcreteDecoratorA(Component comp) : base(comp)
-        {
-        }
-
-        public override string Operation()
-        {
-            return $"ConcreteDecoratorA({base.Operation()})";
-        }
     }
 
-    class ConcreteDecoratorB : Decorator
+    public override string Operation()
     {
-        public ConcreteDecoratorB(Component comp) : base(comp)
-        {
-        }
+        return $"ConcreteDecoratorA({base.Operation()})";
+    }
+}
 
-        public override string Operation()
-        {
-            return $"ConcreteDecoratorB({base.Operation()})";
-        }
+class ConcreteDecoratorB : Decorator
+{
+    public ConcreteDecoratorB(Component comp) : base(comp)
+    {
     }
 
-    public class Client
+    public override string Operation()
     {
-        public void ClientCode(Component component)
-        {
-            Console.WriteLine("RESULT: " + component.Operation());
-        }
+        return $"ConcreteDecoratorB({base.Operation()})";
     }
+}
 
-    class Program
+public class Client
+{
+    public void ClientCode(Component component)
     {
-        static void Main(string[] args)
-        {
-            Client client = new Client();
+        Console.WriteLine("RESULT: " + component.Operation());
+    }
+}
 
-            var simple = new ConcreteComponent();
-            Console.WriteLine("Client: I get a simple component:");
-            client.ClientCode(simple);
-            Console.WriteLine();
+class Program
+{
+    static void Main(string[] args)
+    {
+        Client client = new Client();
 
-            ConcreteDecoratorA decorator1 = new ConcreteDecoratorA(simple);
-            ConcreteDecoratorB decorator2 = new ConcreteDecoratorB(decorator1);
-            Console.WriteLine("Client: Now I've got a decorated component:");
-            client.ClientCode(decorator2);
-        }
+        var simple = new ConcreteComponent();
+        Console.WriteLine("Client: I get a simple component:");
+        client.ClientCode(simple);
+        Console.WriteLine();
+
+        ConcreteDecoratorA decorator1 = new ConcreteDecoratorA(simple);
+        ConcreteDecoratorB decorator2 = new ConcreteDecoratorB(decorator1);
+        Console.WriteLine("Client: Now I've got a decorated component:");
+        client.ClientCode(decorator2);
     }
 }
 ```

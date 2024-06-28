@@ -9,48 +9,45 @@ O Adapter é um padrão de projeto estrutural que permite objetos com interfaces
 ## Implementação
 
 ```
-namespace RefactoringGuru.DesignPatterns.Adapter.Conceptual
+public interface ITarget
 {
-    public interface ITarget
+    string GetRequest();
+}
+
+class Adaptee
+{
+    public string GetSpecificRequest()
     {
-        string GetRequest();
+        return "Specific request.";
+    }
+}
+
+class Adapter : ITarget
+{
+    private readonly Adaptee _adaptee;
+
+    public Adapter(Adaptee adaptee)
+    {
+        this._adaptee = adaptee;
     }
 
-    class Adaptee
+    public string GetRequest()
     {
-        public string GetSpecificRequest()
-        {
-            return "Specific request.";
-        }
+        return $"This is '{this._adaptee.GetSpecificRequest()}'";
     }
+}
 
-    class Adapter : ITarget
+class Program
+{
+    static void Main(string[] args)
     {
-        private readonly Adaptee _adaptee;
+        Adaptee adaptee = new Adaptee();
+        ITarget target = new Adapter(adaptee);
 
-        public Adapter(Adaptee adaptee)
-        {
-            this._adaptee = adaptee;
-        }
+        Console.WriteLine("Adaptee interface is incompatible with the client.");
+        Console.WriteLine("But with adapter client can call it's method.");
 
-        public string GetRequest()
-        {
-            return $"This is '{this._adaptee.GetSpecificRequest()}'";
-        }
-    }
-
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Adaptee adaptee = new Adaptee();
-            ITarget target = new Adapter(adaptee);
-
-            Console.WriteLine("Adaptee interface is incompatible with the client.");
-            Console.WriteLine("But with adapter client can call it's method.");
-
-            Console.WriteLine(target.GetRequest());
-        }
+        Console.WriteLine(target.GetRequest());
     }
 }
 ```

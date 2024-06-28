@@ -9,52 +9,32 @@ O Prototype é um padrão de projeto criacional que permite copiar objetos exist
 ## Implementação
 
 ```
-namespace RefactoringGuru.DesignPatterns.Prototype.Conceptual
+// Classe Prototype
+class Person
 {
-    public class Person
+    public int Age;
+    public string Name;
+    public IdInfo Id;
+
+    public Person ShallowCopy() => (Person)this.MemberwiseClone();
+    public Person DeepCopy() => new Person { Age = Age, Name = string.Copy(Name), Id = new IdInfo(Id.IdNumber) };
+}
+
+class IdInfo
+{
+    public int IdNumber;
+    public IdInfo(int idNumber) { IdNumber = idNumber; }
+}
+
+// Cliente
+class Program
+{
+    static void Main(string[] args)
     {
-        public int Age;
-        public DateTime BirthDate;
-        public string Name;
-        public IdInfo IdInfo;
-
-        public Person ShallowCopy()
-        {
-            return (Person) this.MemberwiseClone();
-        }
-
-        public Person DeepCopy()
-        {
-            Person clone = (Person) this.MemberwiseClone();
-            clone.IdInfo = new IdInfo(IdInfo.IdNumber);
-            clone.Name = String.Copy(Name);
-            return clone;
-        }
-    }
-
-    public class IdInfo
-    {
-        public int IdNumber;
-
-        public IdInfo(int idNumber)
-        {
-            this.IdNumber = idNumber;
-        }
-    }
-
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Person p1 = new Person();
-            p1.Age = 42;
-            p1.BirthDate = Convert.ToDateTime("1977-01-01");
-            p1.Name = "Jack Daniels";
-            p1.IdInfo = new IdInfo(666);
-
-            Person p2 = p1.ShallowCopy(); // Cópia superficial
-            Person p3 = p1.DeepCopy();    // Cópia profunda
-        }
+        var p1 = new Person { Age = 42, Name = "Jack", Id = new IdInfo(666) };
+        var p2 = p1.ShallowCopy();
+        var p3 = p1.DeepCopy();
     }
 }
+
 ```
